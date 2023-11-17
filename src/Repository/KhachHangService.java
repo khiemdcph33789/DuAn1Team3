@@ -1,0 +1,121 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Repository;
+
+import Model.KhachHang;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+
+
+public class KhachHangService {
+    private ArrayList<KhachHang> lists;
+    String connectionUrl
+              = "jdbc:sqlserver://localhost:1433;"
+              + "databaseName=DuAn1"
+              + ";user=sa;password=admin;integratedSecurity=false;"
+              + "encrypt=false;trustServerCertificate=true";
+    Connection conn;
+    Statement stm;
+    PreparedStatement psm;
+
+    public KhachHangService() {
+        lists = new ArrayList<>();
+        try{
+            conn = DriverManager.getConnection(connectionUrl);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        getListKhachHang();
+    }
+    
+    public void getListKhachHang(){
+        lists.clear();
+        try {
+            stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from khach_hang");
+            while (rs.next()) {                
+                int maKhachHang = rs.getInt(1);
+                String tenKhachHang = rs.getString(2);
+                int gioiTinh = rs.getInt(3);
+                String diaChi = rs.getString(4);
+                String soDienThoai = rs.getString(5);
+                int trangThai = rs.getInt(6);
+                String ngayTao = rs.getString(7);
+                KhachHang kh = new KhachHang(maKhachHang, tenKhachHang, gioiTinh, diaChi, soDienThoai, trangThai, ngayTao);
+                lists.add(kh);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ArrayList<KhachHang> getAll(){
+        return lists;
+    }
+
+    public ArrayList<KhachHang> getLists() {
+        return lists;
+    }
+
+    public void setLists(ArrayList<KhachHang> lists) {
+        this.lists = lists;
+    }
+
+    public boolean Delete(int Id){
+        try {
+            psm = conn.prepareStatement("Delete from khach_hang where Id = ?");
+            psm.setInt(1, Id);
+            psm.execute();
+            getListKhachHang();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public void insert(KhachHang kh){
+        try {
+            psm = conn.prepareStatement("Insert into khach_hang (User_name,Gender,Address,PNumber,Status,Create_date) values (?,?,?,?,?,?)");
+            psm.setString(1, kh.getTenKhachHang());
+            psm.setInt(2, kh.getGioiTinh());
+            psm.setString(3, kh.getDiaChi());
+            psm.setString(4, kh.getSoDienThoai());
+            psm.setInt(5, kh.getTrangThai());
+            psm.setString(6, kh.getNgayTao());
+            psm.execute();
+            getListKhachHang();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void update(KhachHang kh){   
+        try {
+            psm = conn.prepareStatement("Update khach_hang set User_name = ?, Gender = ?, Address = ?, PNumber = ?, Status = ?,Create_date = ?  WHERE Id = ?   ");
+            psm.setString(1, kh.getTenKhachHang());
+            psm.setInt(2, kh.getGioiTinh());
+            psm.setString(3, kh.getDiaChi());
+            psm.setString(4, kh.getSoDienThoai());
+            psm.setInt(5, kh.getTrangThai());
+            psm.setString(6, kh.getNgayTao());
+            psm.setInt(7, kh.getMaKhachHang());
+            psm.execute();
+            getListKhachHang();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+}
+    
+    
+
