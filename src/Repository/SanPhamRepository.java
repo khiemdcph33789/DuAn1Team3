@@ -7,7 +7,7 @@ package Repository;
 import Model.SanPham;
 import java.util.ArrayList;
 import java.sql.*;
-
+//nhap o day//
 /**
  *
  * @author khiem
