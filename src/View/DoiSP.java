@@ -12,7 +12,6 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Model.HangDoiModel;
 import Model.timkiemModel;
-import Repository.SeachRepostory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,15 +25,12 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class DoiSP extends javax.swing.JFrame {
-    private HangDoiRepository HDR = new HangDoiRepository();
-    private SeachRepostory SR = new SeachRepostory();
-    
+    private HangDoiRepository HDR = new HangDoiRepository();    
     
     
     
     public DoiSP() {
         initComponents();
-        GetData();
         LoadTable();
     }
     
@@ -49,27 +45,6 @@ public class DoiSP extends javax.swing.JFrame {
                 M.getLyDo(),
                 M.getTrangThai(),};
             dtm.addRow(rowData);
-        }
-    }
-    public void GetData() {
-        DefaultTableModel dtm = (DefaultTableModel) this.tblSeach.getModel();
-        dtm.setRowCount(0);
-        for (timkiemModel M : SR.getList()) {
-            Object[] rowData = {
-                M.getID(),
-                M.getID_KH(),
-                M.getID_SP(),
-                M.getTen_KH(),
-                M.getTen_SP(),
-                M.getSdt(),
-                M.getSize(),
-                M.getLoai_vai(),
-                M.getKieu(),
-                M.getMau(),
-                M.getGia(),
-                M.getNgaymua(),};
-            dtm.addRow(rowData);
-
         }
     }
     public void LoadForm(int row) {
@@ -116,7 +91,6 @@ public class DoiSP extends javax.swing.JFrame {
         txtSeach = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSeach = new javax.swing.JTable();
-        btnSeach = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -330,13 +304,6 @@ public class DoiSP extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblSeach);
 
-        btnSeach.setText("Seach");
-        btnSeach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeachActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("tìm kiếm theo số điện thoại");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -351,9 +318,7 @@ public class DoiSP extends javax.swing.JFrame {
                                 .addGap(367, 367, 367)
                                 .addComponent(jLabel6))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btnSeach)
-                                .addGap(66, 66, 66)
+                                .addGap(159, 159, 159)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtSeach, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -369,9 +334,7 @@ public class DoiSP extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSeach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeach))
+                .addComponent(txtSeach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addGap(28, 28, 28)
@@ -407,27 +370,6 @@ public class DoiSP extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeachActionPerformed
-
-if (txtSeach.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-String searchText = txtSeach.getText();
-        if (searchText.length() < 1) {
-            LoadTable();
-            return;
-        }
-
-        int ID = Integer.parseInt(searchText);
-        SR.search(ID);
-        GetData();
-
-
-
-
-    }//GEN-LAST:event_btnSeachActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         int row = this.tblSach.getSelectedRow();
@@ -589,7 +531,6 @@ String searchText = txtSeach.getText();
     private javax.swing.JButton Update;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSeach;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThoat;
     private javax.swing.JComboBox<String> ccbLyDo;

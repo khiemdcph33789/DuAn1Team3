@@ -18,9 +18,6 @@ import java.sql.*;
 public class DoiHangRepositity {
     private ArrayList<DoiHangModel> list;
     
-    String URL = "jdbc:sqlserver://localhost:1433;encrypt=false;databaseName=DuAn1";
-    String user = "sa";
-    String pass = "admin";
     Connection con;
     Statement st;
     PreparedStatement ps;
@@ -28,7 +25,7 @@ public class DoiHangRepositity {
     public DoiHangRepositity(){
         list = new ArrayList<>();
         try{
-            con = DriverManager.getConnection(URL, user, pass);
+            con = DBConnect.getConnection();
             
         }catch(Exception e) {
             e.printStackTrace();
