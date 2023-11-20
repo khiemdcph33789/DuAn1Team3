@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Service;
-import Service.DBConnect;
+import Repository.DBConnect;
 
 import Model.Phieugiamgia;
 import java.sql.*;

@@ -14,23 +14,14 @@ import java.sql.*;
  */
 public class SanPhamRepository {
     private ArrayList<SanPham> list;
-    String connectionUrl
-              = "jdbc:sqlserver://localhost:1433;"
-              + "databaseName=DuAn1"
-              + ";user=sa;password=admin;integratedSecurity=false;"
-              + "encrypt=false;trustServerCertificate=true";
     Connection conn;
     Statement stm;
     PreparedStatement psm;
 
     public SanPhamRepository() {
         list = new ArrayList<>();
-        try {
-            conn = DriverManager.getConnection(connectionUrl);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        GetListProduct();
+        conn = DBConnect.getConnection();
+
     }
 
     public ArrayList<SanPham> getList() {

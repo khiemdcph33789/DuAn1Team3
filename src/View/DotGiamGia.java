@@ -3,7 +3,7 @@ package View;
 import Model.DanhSachGiamGiaInfo;
 import Model.DanhSachSanPhaminfo;
 import Model.LichSuGiamGia;
-import Service.Service;
+import Service.DoiGiamGiaRepository;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +27,7 @@ public class DotGiamGia extends javax.swing.JFrame {
     private List<DanhSachSanPhaminfo> selectedProductsList = new ArrayList<>();
     private List<ProductWithQuantity> selectedProductsListt = new ArrayList<>();
 
-    private Service listSV = new Service();
+    private DoiGiamGiaRepository listSV = new DoiGiamGiaRepository();
 
     public DotGiamGia() {
         initComponents();
@@ -707,8 +707,8 @@ public class DotGiamGia extends javax.swing.JFrame {
             // Tạo một đối tượng DanhSachGiamGiaInfo với các giá trị đã lấy
             DanhSachGiamGiaInfo discountInfo = new DanhSachGiamGiaInfo(0, tenDotGiamGia, ngayBatDau, ngayKetThuc, phanTramGiamGia, rootPaneCheckingEnabled);
 
-            // Gọi phương thức addGiamGia từ lớp Service để lưu thông tin vào cơ sở dữ liệu
-            Service service = new Service();
+            // Gọi phương thức addGiamGia từ lớp DoiGiamGiaRepository để lưu thông tin vào cơ sở dữ liệu
+            DoiGiamGiaRepository service = new DoiGiamGiaRepository();
             service.addGiamGia(discountInfo);
 
             // Làm mới bảng sau khi thêm một ưu đãi mới
@@ -828,7 +828,7 @@ public class DotGiamGia extends javax.swing.JFrame {
             int dotGiamGiaId = (int) tblDSGG.getValueAt(selectedPromotionRow, 0);
 
             // Gọi phương thức xoaSanPhamKhoiDotGG từ đối tượng service để xóa sản phẩm khỏi đợt giảm giá
-            Service service = new Service();
+            DoiGiamGiaRepository service = new DoiGiamGiaRepository();
             service.xoaSanPhamKhoiDotGG(chiTietSanPhamId, dotGiamGiaId);
 
             // Hiển thị thông báo cho người dùng

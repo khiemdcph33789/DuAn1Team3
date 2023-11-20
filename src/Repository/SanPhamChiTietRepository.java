@@ -15,23 +15,15 @@ import java.sql.*;
 public class SanPhamChiTietRepository {
 
     private ArrayList<SanPhamChiTiet> list;
-    String connectionUrl
-              = "jdbc:sqlserver://localhost:1433;"
-              + "databaseName=DuAn1"
-              + ";user=sa;password=admin;integratedSecurity=false;"
-              + "encrypt=false;trustServerCertificate=true";
+    
     Connection conn;
     Statement stm;
     PreparedStatement psm;
 
     public SanPhamChiTietRepository() {
         list = new ArrayList<>();
-        try {
-            conn = DriverManager.getConnection(connectionUrl);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        GetListProductDetail();
+        conn = DBConnect.getConnection();
+
     }
 
     public ArrayList<SanPhamChiTiet> getList() {

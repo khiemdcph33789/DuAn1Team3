@@ -22,9 +22,6 @@ import Model.HangDoiModel;
 public class HangDoiRepository {
     private ArrayList<HangDoiModel> list;
 
-    String URL = "jdbc:sqlserver://localhost:1433;encrypt=false;databaseName=DuAn1";
-    String user = "sa";
-    String pass = "admin";
     Connection con;
     Statement st;
     PreparedStatement ps;
@@ -32,7 +29,7 @@ public class HangDoiRepository {
     public HangDoiRepository() {
         list = new ArrayList<>();
         try {
-            con = DriverManager.getConnection(URL, user, pass);
+            con = DBConnect.getConnection();
 
         } catch (Exception e) {
             e.printStackTrace();
