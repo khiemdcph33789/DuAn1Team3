@@ -3,7 +3,7 @@ package View;
 import Model.DanhSachGiamGiaInfo;
 import Model.DanhSachSanPhaminfo;
 import Model.LichSuGiamGia;
-import Service.DoiGiamGiaRepository;
+import Repository.DoiGiamGiaRepository;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Service;
+package Repository;
 import Repository.DBConnect;
 
 import Model.Phieugiamgia;
@@ -19,7 +19,7 @@ import java.util.UUID;
  *
  * @author Admin
  */
-public class ServiceGiamGia {
+public class GiamGiaRepository {
     public List<Phieugiamgia> getAll() {
         String query = "select phieu_giam_gia.Id,phieu_giam_gia.san_pham_id,phieu_giam_gia.chuong_trinh,phieu_giam_gia.muc_giam,phieu_giam_gia.so_luong,phieu_giam_gia.ngay_tao,phieu_giam_gia.ngay_bat_dau,phieu_giam_gia.ngay_ket_thuc from phieu_giam_gia";
 

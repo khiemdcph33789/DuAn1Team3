@@ -1,4 +1,4 @@
-package Service;
+package Repository;
 
 import Model.DanhSachGiamGiaInfo;
 import Model.DanhSachSanPhaminfo;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-public class Service {
+public class DoiGiamGiaRepository {
 
     public ArrayList<DanhSachSanPhaminfo> getAllSanPham() {
         String sql = "SELECT san_pham.id, san_pham.Name, san_pham.FabricType, san_pham.Designs, san_pham_chi_tiet.Size, san_pham_chi_tiet.Color, san_pham_chi_tiet.SellPrice, san_pham_chi_tiet.Quantity FROM san_pham JOIN san_pham_chi_tiet ON san_pham_chi_tiet.id = san_pham.id ";

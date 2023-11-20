@@ -2,7 +2,7 @@ package View;
 
 
 import Model.Phieugiamgia;
-import Service.ServiceGiamGia;
+import Repository.GiamGiaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +33,7 @@ public class PhieuGiamGia extends javax.swing.JFrame {
      */
      private DefaultTableModel dtm = new DefaultTableModel();
     private List<Phieugiamgia> lists = new ArrayList<>();
-    private final ServiceGiamGia ggService = new ServiceGiamGia();
+    private final GiamGiaRepository ggService = new GiamGiaRepository();
     public PhieuGiamGia() {
         initComponents();
         dtm = (DefaultTableModel) tblGiamGia.getModel();
@@ -541,7 +541,7 @@ public class PhieuGiamGia extends javax.swing.JFrame {
     Phieugiamgia dsp = new Phieugiamgia(Id, sp, ctrinh, mucgiam, soluong, ngaytao, ngaybatdau, ngayketthuc);
 
     // Gọi phương thức addGiamGia từ lớp Service để lưu thông tin vào cơ sở dữ liệu
-    ServiceGiamGia service = new ServiceGiamGia();
+    GiamGiaRepository service = new GiamGiaRepository();
     service.add(dsp);
 
     // Làm mới bảng sau khi thêm một ưu đãi mới

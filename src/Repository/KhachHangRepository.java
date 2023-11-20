@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 
 
-public class KhachHangService {
+public class KhachHangRepository {
     private ArrayList<KhachHang> lists;
     Connection conn;
     Statement stm;
     PreparedStatement psm;
 
-    public KhachHangService() {
+    public KhachHangRepository() {
         lists = new ArrayList<>();
         conn = DBConnect.getConnection();
         getListKhachHang();
