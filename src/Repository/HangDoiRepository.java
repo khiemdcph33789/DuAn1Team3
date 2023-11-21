@@ -118,7 +118,7 @@ public class HangDoiRepository {
 
         try {
             st = con.createStatement();
-            ResultSet rs = st.executeQuery("select hoa_don_chi_tiet.Id,hoa_don_chi_tiet.san_pham_ID,khach_hang_ID,Name_khach_hang,Name,PNumber,\n"
+            ResultSet rs = st.executeQuery("select hoa_don_chi_tiet.Id,hoa_don_chi_tiet.san_pham_ID,khach_hang_ID,User_Name,Name,PNumber,\n"
                     + "FabricType,Designs,Size,Color,SellPrice,ngay_mua\n"
                     + "from hoa_don_chi_tiet join san_pham on san_pham.Id = hoa_don_chi_tiet.hoa_don_id\n"
                     + "                               join hoa_don on hoa_don.Id = hoa_don_chi_tiet.hoa_don_id\n"
