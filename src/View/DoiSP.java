@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import Model.HangDoiModel;
+import Model.KhachHang;
 import Model.timkiemModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -26,7 +29,8 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class DoiSP extends javax.swing.JFrame {
-    private HangDoiRepository HDR = new HangDoiRepository();    
+    private HangDoiRepository HDR = new HangDoiRepository(); 
+    private ArrayList<timkiemModel> listSP = new ArrayList<>();
     
     
     
@@ -314,6 +318,17 @@ public class DoiSP extends javax.swing.JFrame {
         jLabel6.setText("Check San Pham");
         jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtSeach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSeachActionPerformed(evt);
+            }
+        });
+        txtSeach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSeachKeyReleased(evt);
+            }
+        });
+
         tblSeach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -514,6 +529,45 @@ public class DoiSP extends javax.swing.JFrame {
         }
         LoadForm(row);
     }//GEN-LAST:event_tblSachMouseClicked
+
+    private void txtSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSeachActionPerformed
+        
+    }//GEN-LAST:event_txtSeachActionPerformed
+
+    private void txtSeachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSeachKeyReleased
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSeach.getModel();
+        dtm.setRowCount(0);
+        String search = this.txtSeach.getText();
+        for (timkiemModel kh : listSP) {
+            String regex = ".*" + Pattern.quote(search) + ".*";
+            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(String.valueOf(kh.getSdt()));
+                System.out.println("Search Text: " + search);
+            System.out.println("Regex Pattern: " + regex);
+            System.out.println("Data to Match: " + kh.getSdt());
+                    // rest of your code
+                    if (matcher.find()) {
+                        Object[] rowData = {
+                            kh.getID(),
+                            kh.getID_KH(),
+                            kh.getID_SP(),
+                            kh.getTen_KH(),
+                            kh.getTen_SP(),
+                            kh.getSdt(),
+                            kh.getSize(),
+                            kh.getLoai_vai(),
+                            kh.getKieu(),
+                            kh.getMau(),
+                            kh.getGia(),
+                            kh.getNgaymua(),};
+                        dtm.addRow(rowData);
+                    }
+                
+            
+            System.out.println(regex);
+            
+        }
+    }//GEN-LAST:event_txtSeachKeyReleased
 
     /**
      * @param args the command line arguments
