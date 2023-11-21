@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import Model.HangDoiModel;
+import Model.timkiemModel;
 
 
 /**
@@ -21,6 +22,8 @@ import Model.HangDoiModel;
  */
 public class HangDoiRepository {
     private ArrayList<HangDoiModel> list;
+    private ArrayList<timkiemModel> listSP = new ArrayList<>();;
+
 
     Connection con;
     Statement st;
@@ -110,6 +113,42 @@ public class HangDoiRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<timkiemModel> LoadSeach() {
+
+        try {
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("select hoa_don_chi_tiet.Id,hoa_don_chi_tiet.san_pham_ID,khach_hang_ID,Name_khach_hang,Name,PNumber,\n"
+                    + "FabricType,Designs,Size,Color,SellPrice,ngay_mua\n"
+                    + "from hoa_don_chi_tiet join san_pham on san_pham.Id = hoa_don_chi_tiet.hoa_don_id\n"
+                    + "                               join hoa_don on hoa_don.Id = hoa_don_chi_tiet.hoa_don_id\n"
+                    + "				      join khach_hang on khach_hang.Id = hoa_don_chi_tiet.hoa_don_id\n"
+                    + "				      join san_pham_chi_tiet on san_pham_chi_tiet.Id = hoa_don_chi_tiet.hoa_don_id");
+
+            while (rs.next()) {
+                int ID = rs.getInt("Id");
+
+                String sp_ID = rs.getString("san_pham_ID");
+                String kh_ID = rs.getString("khach_hang_ID");
+                String ten_KH = rs.getString("Name_khach_hang");
+                String ten_SP = rs.getString("name");
+                int sdt = rs.getInt("PNumber");
+                String loai = rs.getString("FabricType");
+                String kieu = rs.getString("designs");
+                String size = rs.getString("size");
+                String mau = rs.getString("color");
+                String gia = rs.getString("sellprice");
+                String ngaymua = rs.getString("ngay_mua");
+
+                timkiemModel tm = new timkiemModel(ID, sp_ID, kh_ID, ten_KH, ten_SP, sdt, size, loai, kieu, mau, gia, ngaymua);
+                listSP.add(tm);
+            }
+            return listSP;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listSP;
+
     }
 
 }

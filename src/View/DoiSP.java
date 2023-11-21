@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,6 +33,7 @@ public class DoiSP extends javax.swing.JFrame {
     public DoiSP() {
         initComponents();
         LoadTable();
+        GetData();
     }
     
     public void LoadTable() {
@@ -45,6 +47,27 @@ public class DoiSP extends javax.swing.JFrame {
                 M.getLyDo(),
                 M.getTrangThai(),};
             dtm.addRow(rowData);
+        }
+    }
+    public void GetData() {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSeach.getModel();
+        dtm.setRowCount(0);
+        for (timkiemModel M : HDR.LoadSeach()) {
+            Object[] rowData = {
+                M.getID(),
+                M.getID_KH(),
+                M.getID_SP(),
+                M.getTen_KH(),
+                M.getTen_SP(),
+                M.getSdt(),
+                M.getSize(),
+                M.getLoai_vai(),
+                M.getKieu(),
+                M.getMau(),
+                M.getGia(),
+                M.getNgaymua(),};
+            dtm.addRow(rowData);
+
         }
     }
     public void LoadForm(int row) {
@@ -318,11 +341,11 @@ public class DoiSP extends javax.swing.JFrame {
                                 .addGap(367, 367, 367)
                                 .addComponent(jLabel6))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
+                                .addGap(156, 156, 156)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtSeach, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 302, Short.MAX_VALUE))
+                        .addGap(0, 305, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2)))
@@ -337,9 +360,9 @@ public class DoiSP extends javax.swing.JFrame {
                 .addComponent(txtSeach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(237, 237, 237))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(223, 223, 223))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
