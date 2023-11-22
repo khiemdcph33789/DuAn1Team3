@@ -130,7 +130,7 @@ public class HangDoiRepository {
 
                 String sp_ID = rs.getString("san_pham_ID");
                 String kh_ID = rs.getString("khach_hang_ID");
-                String ten_KH = rs.getString("Name_khach_hang");
+                String ten_KH = rs.getString("User_Name");
                 String ten_SP = rs.getString("name");
                 int sdt = rs.getInt("PNumber");
                 String loai = rs.getString("FabricType");
