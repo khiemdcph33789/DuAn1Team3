@@ -461,7 +461,7 @@ public class DotGiamGia extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdoDangHoatDong)
                     .addComponent(rdoDaKetThuc))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -568,7 +568,7 @@ public class DotGiamGia extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -745,30 +745,48 @@ public class DotGiamGia extends javax.swing.JFrame {
         int selectedRowIndex = tblDSGG.getSelectedRow();
 
         if (selectedRowIndex != -1) {
-            int maGiamGia = (int) tblDSGG.getValueAt(selectedRowIndex, 0);
-            DanhSachGiamGiaInfo giamGiaInfo = listSV.getGiamGiaById(maGiamGia);
+            // Lấy giá trị nhập từ các thành phần giao diện người dùng
+            String tenDotGiamGia = txtTenDotGiamGia.getText().trim();
+            String mucGiamGiaStr = txtMucGiamGia.getText().trim();
+            Date ngayBatDau = jdcNgayBatDau.getDate();
+            Date ngayKetThuc = jdcNgayKetThuc.getDate();
 
-            // Set the fields in your update form with the values from giamGiaInfo
-            giamGiaInfo.setTenDotGiamGia(txtTenDotGiamGia.getText());
-            giamGiaInfo.setPhanTramGiamGia(Float.parseFloat(txtMucGiamGia.getText()));
-            // Bạn cần phải xử lý chuyển đổi ngày từ chuỗi sang đối tượng java.util.Date
-            // tương ứng với txtNgayBatDau và txtNgayKetThuc.
-            // Sau đó, set ngày bắt đầu và ngày kết thúc cho giamGiaInfo.
-
-            if (rdoDangHoatDong.isSelected()) {
-                giamGiaInfo.setTrangThai(true);
-            } else if (rdoDaKetThuc.isSelected()) {
-                giamGiaInfo.setTrangThai(false);
+            // Xác thực rằng các trường bắt buộc không rỗng
+            if (tenDotGiamGia.isEmpty() || mucGiamGiaStr.isEmpty() || ngayBatDau == null || ngayKetThuc == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // Gọi phương thức UpdateGiamGia để cập nhật dữ liệu trong cơ sở dữ liệu
-            listSV.UpdateGiamGia(giamGiaInfo);
+            try {
+                // Chuyển đổi giá trị số sau khi xác thực
+                float phanTramGiamGia = Float.parseFloat(mucGiamGiaStr);
 
-            // Sau khi cập nhật, cần load lại danh sách giảm giá để cập nhật bảng
-            LoadTable2();
+                // Kiểm tra xem mức giảm giá nằm trong khoảng từ 1 đến 100
+                if (phanTramGiamGia < 1 || phanTramGiamGia > 100) {
+                    JOptionPane.showMessageDialog(this, "Mức giảm giá phải nằm trong khoảng từ 1 đến 100.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            // Thông báo sửa thành công
-            JOptionPane.showMessageDialog(null, "Cập nhật thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                // Lấy mã giảm giá từ dòng đã chọn trong bảng
+                int maGiamGia = (int) tblDSGG.getValueAt(selectedRowIndex, 0);
+
+                // Xác định trạng thái dựa trên radio buttons
+                boolean trangThai = rdoDangHoatDong.isSelected();
+
+                // Tạo một đối tượng DanhSachGiamGiaInfo với các giá trị đã lấy
+                DanhSachGiamGiaInfo discountInfo = new DanhSachGiamGiaInfo(maGiamGia, tenDotGiamGia, ngayBatDau, ngayKetThuc, phanTramGiamGia, trangThai);
+
+                // Gọi phương thức updateGiamGia từ lớp DoiGiamGiaRepository để cập nhật thông tin vào cơ sở dữ liệu
+                DoiGiamGiaRepository service = new DoiGiamGiaRepository();
+                service.UpdateGiamGia(discountInfo);
+                LoadTable2();
+
+                // Hiển thị thông báo thành công
+                JOptionPane.showMessageDialog(this, "Cập nhật đợt giảm giá thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Giá trị số không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một đợt giảm giá để cập nhật.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }

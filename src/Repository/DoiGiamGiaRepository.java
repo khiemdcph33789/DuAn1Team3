@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,12 +73,11 @@ public class DoiGiamGiaRepository {
             // Set the date values using Timestamp to include both date and time parts
             ps.setTimestamp(1, new java.sql.Timestamp(ds.getNgayBatDau().getTime()));
             ps.setTimestamp(2, new java.sql.Timestamp(ds.getNgayKetThuc().getTime()));
-
             ps.setObject(3, ds.getPhanTramGiamGia());
             ps.setObject(4, ds.getTenDotGiamGia());
             ps.setObject(5, ds.isTrangThai());
             ps.setObject(6, ds.getMaGiamGia());
-
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             int rowsAffected = ps.executeUpdate();
 
             // Commit the transaction
