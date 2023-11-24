@@ -21,7 +21,7 @@ public class SanPhamRepository {
     public SanPhamRepository() {
         list = new ArrayList<>();
         conn = DBConnect.getConnection();
-
+        GetListProduct();
     }
 
     public ArrayList<SanPham> getList() {

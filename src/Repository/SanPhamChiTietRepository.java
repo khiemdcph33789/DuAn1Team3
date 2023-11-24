@@ -23,6 +23,7 @@ public class SanPhamChiTietRepository {
     public SanPhamChiTietRepository() {
         list = new ArrayList<>();
         conn = DBConnect.getConnection();
+        GetListProductDetail();
 
     }
 
