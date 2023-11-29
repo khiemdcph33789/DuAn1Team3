@@ -4,6 +4,7 @@
  */
 package Repository;
 
+
 import Model.KhachHang;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -106,7 +107,25 @@ public class KhachHangRepository {
         }
     }
     
+    public String getNameKhachHang(int Id) {
+        try {
+            String tenKH = null;
+            psm = conn.prepareStatement("Select User_name from khach_hang WHERE Id = ?   ");
+            psm.setInt(1, Id);
+            ResultSet rs = psm.executeQuery();
+            while(rs.next()){
+                tenKH = rs.getString(1);
+            }
+            return tenKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+       
+    
 }
+
     
     
 
