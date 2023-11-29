@@ -111,6 +111,53 @@ public class SanPhamRepository {
             ex.printStackTrace();
         }
     }
-   
+    public String getName(int Id) {
+        try {
+            String tenKH = null;
+            psm = conn.prepareStatement("Select name from san_pham WHERE Id = ?   ");
+            psm.setInt(1, Id);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                tenKH = rs.getString(1);
+            }
+            return tenKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String getFabricType(int Id) {
+        try {
+            String tenKH = null;
+            psm = conn.prepareStatement("Select FabricType from san_pham WHERE Id = ?   ");
+            psm.setInt(1, Id);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                tenKH = rs.getString(1);
+            }
+            return tenKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String getDesigns(int Id) {
+        try {
+            String tenKH = null;
+            psm = conn.prepareStatement("Select Designs from san_pham WHERE Id = ?   ");
+            psm.setInt(1, Id);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                tenKH = rs.getString(1);
+            }
+            return tenKH;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    
 
 }
