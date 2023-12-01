@@ -61,18 +61,7 @@ public class KhachHangRepository {
         this.lists = lists;
     }
 
-    public boolean Delete(int Id){
-        try {
-            psm = conn.prepareStatement("Delete from khach_hang where Id = ?");
-            psm.setInt(1, Id);
-            psm.execute();
-            getListKhachHang();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+   
     
     public void insert(KhachHang kh){
         try {
