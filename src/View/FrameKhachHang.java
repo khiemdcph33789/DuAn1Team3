@@ -15,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -436,30 +437,63 @@ public class FrameKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        khService.insert(getFormData());
-        showDataTable(listKhachHang);
+        if (validateData() == true) {
+            khService.insert(getFormData());
+            showDataTable(listKhachHang);
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
+        }
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        int row = tblKhachHang.getSelectedRow();
-        if (row == -1) {
-            return;
+        if(validateData() == true){
+            int row = tblKhachHang.getSelectedRow();
+            if (row == -1) {
+                return;
+            }
+            KhachHang kh = khService.getLists().get(row);
+            String tenKhachHang = txtTenKhachHang.getText();
+            int gioiTinh = (rdoNam.isSelected()) ? 0 : 1;
+            String diaChi = txtDiaChi.getText();
+            String soDienThoai = txtSoDienThoai.getText();
+            int trangThai = (rdoConHoatDong.isSelected()) ? 1 : 0;
+            kh.setTenKhachHang(tenKhachHang);
+            kh.setGioiTinh(gioiTinh);
+            kh.setDiaChi(diaChi);
+            kh.setSoDienThoai(soDienThoai);
+            kh.setTrangThai(trangThai);
+            khService.update(kh);
+            showDataTable(listKhachHang);
+            JOptionPane.showMessageDialog(this, "Sửa thông tin khách hàng thành công!");
+
         }
-        KhachHang kh = khService.getLists().get(row);
+       
+    }//GEN-LAST:event_btnSuaActionPerformed
+    public boolean validateData(){
         String tenKhachHang = txtTenKhachHang.getText();
-        int gioiTinh = (rdoNam.isSelected()) ? 0 : 1;
         String diaChi = txtDiaChi.getText();
         String soDienThoai = txtSoDienThoai.getText();
-        int trangThai = (rdoConHoatDong.isSelected()) ? 1 : 0;
-        kh.setTenKhachHang(tenKhachHang);
-        kh.setGioiTinh(gioiTinh);
-        kh.setDiaChi(diaChi);
-        kh.setSoDienThoai(soDienThoai);
-        kh.setTrangThai(trangThai);
-        khService.update(kh);
-        showDataTable(listKhachHang);
-    }//GEN-LAST:event_btnSuaActionPerformed
-
+        
+        if(tenKhachHang.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng");
+            return false;
+        }
+        if (diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ khách hàng");
+            return false;
+        }
+        if (soDienThoai.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại khách hàng");
+            return false;
+        }else{
+            if(!soDienThoai.startsWith("0")){
+                JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ vui lòng thử lại");
+                return false;
+            }
+        }
+        return true;
+        
+    }
     private void cbbLocGioiTinhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbbLocGioiTinhPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbLocGioiTinhPropertyChange

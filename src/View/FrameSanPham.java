@@ -410,7 +410,7 @@ public class FrameSanPham extends javax.swing.JFrame {
 
         cbbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "X", "XL" }));
 
-        jButton1.setText("Tạo barcode");
+        jButton1.setText("In barcode");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -749,6 +749,7 @@ public class FrameSanPham extends javax.swing.JFrame {
         try {
             int row = this.tblSanPhamChiTiet.getSelectedRow();
             if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm muốn in barcode");
                 return;
             }
             int rowSP = this.tblSP.getSelectedRow();
@@ -761,7 +762,7 @@ public class FrameSanPham extends javax.swing.JFrame {
             BufferedImage barcodeImage = generateBarcode(data);
 //            saveBarcodeImage(barcodeImage, "D:\\trotruong.png");
             saveBarcodeImage(barcodeImage, "D:\\STUDYYYY\\DuAn1\\Barcode_img\\" + sanphamCTID + "_" + data + ".png");
-
+            JOptionPane.showMessageDialog(this,"In barcode thành công  D:\\STUDYYYY\\DuAn1\\Barcode_img\\" + sanphamCTID + "_" + data + ".png");
 
         } catch (Exception e) {
 
