@@ -623,7 +623,7 @@ public class JFrameHoaDon extends javax.swing.JFrame {
                 Price = BigDecimal.valueOf(spct.getSellPrice());
                 if (quantityProduct < 0) {
                     JOptionPane.showMessageDialog(null, "Số lượng khong hợp lệ vui lòng nhập lại!");
-                    String input = JOptionPane.showInputDialog(this, "Nhập số lượng sản phẩm");
+                    return;
 
                 }
                 break;
