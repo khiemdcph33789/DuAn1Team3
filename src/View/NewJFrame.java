@@ -8,6 +8,7 @@ import Model.HoaDon;
 import Model.SanPhamChiTiet;
 import Model.SanPham;
 import Model.KhachHang;
+import Repository.GiamGiaChiTietRepository;
 import Repository.HoaDonRepository;
 import Repository.KhachHangRepository;
 import Repository.SanPhamChiTietRepository;
@@ -21,25 +22,38 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.lang.model.element.Name;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
 /**
  *
  * @author Administrator
  */
 public final class NewJFrame extends javax.swing.JFrame {
-    private HoaDonRepository HOA_DON_REPO;
+    private VideoCapture capture;
+    private Mat image;
+    private HoaDonRepository HOA_DON_REPO = new HoaDonRepository();
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private KhachHangRepository khRepo = new KhachHangRepository();
     private SanPhamRepository SPR = new SanPhamRepository();
     private SanPhamChiTietRepository spct = new SanPhamChiTietRepository();
+    
 
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
-        HOA_DON_REPO = new HoaDonRepository();
+        initOpenCV();
+        startWebCam();
+        
         loadHoaDon();
         loadDataToTableSPCT();
         
@@ -51,6 +65,7 @@ public final class NewJFrame extends javax.swing.JFrame {
         dtm.setRowCount(0);
         for(HoaDon hd : HOA_DON_REPO.getList()){
             Object[] rowData = {
+                
                 hd.getMaHoaDon(),
                 khRepo.getNameKhachHang(hd.getKhach_hang_id()),
                 hd.getTrangThai(),
@@ -63,26 +78,26 @@ public final class NewJFrame extends javax.swing.JFrame {
 
         
     }
-//    public void LoadDataToTableSPCT(int SanPhamID) {
-//        DefaultTableModel dtm = (DefaultTableModel) this.tblSanPham.getModel();
-//        dtm.setRowCount(0);
-//        for (SanPhamChiTiet spct : spct.getList()) {
-//            if (spct.getSan_pham_Id() == SanPhamID) {
-//                 
-//                Object[] rowData = {
-//                    
-//                    spct.getId(),
-//                    SPR.getName(spct.getSan_pham_Id()),
-//                    spct.getColor(),
-//                    spct.getQuantity(),
-//                    spct.getSize(),
-//                    spct.getSellPrice(),
-//                    spct.getNote(),
-//                };
-//                dtm.addRow(rowData);
-//            }
-//        }
-//    }
+    public void LoadDataToTableSPCT(int SanPhamID) {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSanPham.getModel();
+        dtm.setRowCount(0);
+        for (SanPhamChiTiet spct : spct.getList()) {
+            if (spct.getSan_pham_Id() == SanPhamID) {
+                 
+                Object[] rowData = {
+                    
+                    spct.getId(),
+                    SPR.getName(spct.getSan_pham_Id()),
+                    spct.getColor(),
+                    spct.getQuantity(),
+                    spct.getSize(),
+                    spct.getSellPrice(),
+                    spct.getNote(),
+                };
+                dtm.addRow(rowData);
+            }
+        }
+    }
     private void loadDataToTableSPCT() {
         DefaultTableModel dtm = (DefaultTableModel) tblSanPham.getModel();
         dtm.setRowCount(0);
@@ -145,6 +160,8 @@ public final class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnTaoHoaDon = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        webCamScreen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,9 +181,9 @@ public final class NewJFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,10 +220,10 @@ public final class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton4)
-                        .addGap(0, 548, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -232,6 +249,9 @@ public final class NewJFrame extends javax.swing.JFrame {
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSanPhamMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseEntered(evt);
             }
         });
         jScrollPane3.setViewportView(tblSanPham);
@@ -404,17 +424,39 @@ public final class NewJFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Hoá Đơn", jPanel5);
 
+        webCamScreen.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(webCamScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(webCamScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -424,8 +466,12 @@ public final class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,6 +538,36 @@ public final class NewJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblGioHangMouseClicked
 
+    private void tblSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblSanPhamMouseEntered
+    private void initOpenCV() {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.out.println("OpenCV loaded successfully");
+        capture = new VideoCapture(0);
+        image = new Mat();
+    }
+
+    public void startWebCam() {
+        Runnable webcamTask = () -> {
+            ImageIcon icon;
+            while (true) {
+                capture.read(image);
+                Size newSize = new Size(315, 205 );
+                Imgproc.resize(image, image, newSize);
+                MatOfByte buf = new MatOfByte();
+                Imgcodecs.imencode(".jpg", image, buf);
+                byte[] imageData = buf.toArray();
+
+                icon = new ImageIcon(imageData);
+                webCamScreen.setIcon(icon);
+            }
+        };
+
+        Thread webcamThread = new Thread(webcamTask);
+        webcamThread.setDaemon(true);
+        webcamThread.start();
+    }
     /**
      * @param args the command line arguments
      */
@@ -548,6 +624,7 @@ public final class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
@@ -560,6 +637,7 @@ public final class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTable tblSanPham;
     private javax.swing.JTextField txtSĐT;
     private javax.swing.JTextField txtTenKH;
+    private javax.swing.JLabel webCamScreen;
     // End of variables declaration//GEN-END:variables
 
 }
