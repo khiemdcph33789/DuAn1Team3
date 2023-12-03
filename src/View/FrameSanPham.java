@@ -757,10 +757,11 @@ public class FrameSanPham extends javax.swing.JFrame {
             }
 
             String data = this.tblSanPhamChiTiet.getValueAt(row, 1).toString();
-
+            String sanphamCTID = this.tblSanPhamChiTiet.getValueAt(row, 0).toString();
             BufferedImage barcodeImage = generateBarcode(data);
-            System.out.println("CHCECKKC");
-            saveBarcodeImage(barcodeImage, "D:\\trotruong.png");
+//            saveBarcodeImage(barcodeImage, "D:\\trotruong.png");
+            saveBarcodeImage(barcodeImage, "D:\\STUDYYYY\\DuAn1\\Barcode_img\\" + sanphamCTID + "_" + data + ".png");
+
 
         } catch (Exception e) {
 
@@ -834,7 +835,6 @@ public class FrameSanPham extends javax.swing.JFrame {
 
     private void saveBarcodeImage(BufferedImage image, String filePath) {
         try {
-            System.out.println("HEHEHE");
             File outputFile = new File(filePath);
             ImageIO.write(image, "png", outputFile);
             System.out.println("Barcode image saved to: " + outputFile.getAbsolutePath());

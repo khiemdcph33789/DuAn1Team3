@@ -4,6 +4,7 @@
  */
 package Repository;
 import Model.HoaDon;
+import Model.PhieuGiamGiaChiTiet;
 import Repository.DBConnect;
 
 import Model.Phieugiamgia;
@@ -84,14 +85,14 @@ public class GiamGiaRepository {
         }
     
 }
-//    
 //
+//    
     public boolean Delete(int ID) {
         try {
             psm = conn.prepareStatement("Delete from phieu_giam_gia where ID = ?");
             psm.setInt(1, ID);
             psm.execute();
-            GetData();
+//            GetData();
             return true;
 
         } catch (Exception e) {
@@ -101,9 +102,10 @@ public class GiamGiaRepository {
     }
     public void UpdateQuantity(int ID, int soluong){
         try {
-            psm = conn.prepareStatement("UPDATE phieu_giam_gia\n"
-                    + "SET so_luong = ?\n"
-                    + "WHERE ID = ?;");
+            psm = conn.prepareStatement("""
+                                        UPDATE phieu_giam_gia
+                                        SET so_luong = ?
+                                        WHERE ID = ?;""");
             psm.setInt(1, soluong);
             psm.setInt(2, ID);
             
@@ -114,19 +116,31 @@ public class GiamGiaRepository {
             e.printStackTrace();
         }
     }
-    public void GetPercentDiscount(String MaPhieu, int KhachHangID){
+    public PhieuGiamGiaChiTiet GetPercentDiscount(String MaPhieu, int KhachHangID){
+        System.out.println(MaPhieu);
+        System.out.println(KhachHangID);
         try {
-            psm = conn.prepareStatement(" SELECT muc_giam_gia,so_luong,dieukien,status FROM phieu_giam_gia pgg \n"
-                    + "right join phieu_giam_gia_chi_tiet ct on pgg.Id = ct.ID_phieu_giam_gia\n"
-                    + "where ID_Khach_hang = ? and ma_phieu = ? and (ngay_ket_thuc > CONVERT( date, GETDATE()) or ngay_ket_thuc = CONVERT(date, GETDATE()))");
-            psm.setString(1, MaPhieu);
-            psm.setInt(2, KhachHangID);
-
-            psm.execute();
-            GetData();
+            psm = conn.prepareStatement("""
+                                         SELECT muc_giam_gia,dieukien,status FROM phieu_giam_gia pgg 
+                                        right join phieu_giam_gia_chi_tiet ct on pgg.Id = ct.ID_phieu_giam_gia
+                                        where ID_Khach_hang = ? and ma_phieu = ? and (ngay_ket_thuc > CONVERT( date, GETDATE()) or ngay_ket_thuc = CONVERT(date, GETDATE()))""");
+            psm.setString(2, MaPhieu);
+            psm.setInt(1, KhachHangID);
+            ResultSet rs = psm.executeQuery();
+            PhieuGiamGiaChiTiet PhieuGiamGiaCT = null;
+            while(rs.next()){
+                int PercentDiscount = rs.getInt(1);
+                BigDecimal dieu_kien = rs.getBigDecimal(2);
+                boolean status = rs.getBoolean(3);
+                PhieuGiamGiaCT = new PhieuGiamGiaChiTiet(PercentDiscount, dieu_kien, status,MaPhieu);
+            }
+            
+            return PhieuGiamGiaCT;
+//            GetData();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

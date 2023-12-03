@@ -111,6 +111,36 @@ public class KhachHangRepository {
         }
         return null;
     }
+    public int getKhachHangID(String PNumber) {
+        try {
+            int KhachHangID = 0;
+            psm = conn.prepareStatement("Select Id from khach_hang WHERE PNumber = ?   ");
+            psm.setString(1, PNumber);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                KhachHangID = rs.getInt(1);
+            }
+            return KhachHangID;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public String getPNumber(int khachHangID) {
+        try {
+            String PNumber = "";
+            psm = conn.prepareStatement("Select  PNumber from khach_hang WHERE Id = ?   ");
+            psm.setInt(1, khachHangID);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                PNumber = rs.getString(1);
+            }
+            return PNumber;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
        
     
 }

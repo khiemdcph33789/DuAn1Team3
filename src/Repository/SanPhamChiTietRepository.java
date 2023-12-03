@@ -119,6 +119,18 @@ public class SanPhamChiTietRepository {
             ex.printStackTrace();
         }
     }
+    public void MinusQuantity(int spctID,int quantity) {
+        try {
+            psm = conn.prepareStatement("Update san_pham_chi_tiet set Quantity = ? where Id = ?");
+            psm.setInt(1, quantity);
+            psm.setInt(2, spctID);
+            psm.execute();
+            GetListProductDetail();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     
 }

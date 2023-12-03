@@ -8,9 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
+import jdk.jfr.Percentage;
 
 public class DoiGiamGiaRepository {
 
@@ -156,5 +158,25 @@ public class DoiGiamGiaRepository {
             e.printStackTrace();
         }
     }
+    
+    public int GetPercentDiscount() {
+        int PercentDiscount = 0;
 
+        try {
+            Connection conn = DBConnect.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("""
+                         select phan_tram_giam_gia
+                           from Dot_Giam_Gia where trang_thai = 1 and (ngay_ket_thuc > CONVERT(date, GETDATE()) or ngay_ket_thuc = CONVERT(date, GETDATE()))""");
+            while(rs.next()){
+                PercentDiscount =  rs.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            
+        }
+        return PercentDiscount;
+
+    }
 }

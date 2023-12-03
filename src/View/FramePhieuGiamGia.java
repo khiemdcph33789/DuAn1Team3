@@ -1,7 +1,6 @@
 package View;
 
 import Model.Phieugiamgia;
-import Repository.GiamGiaChiTietRepository;
 import Repository.GiamGiaRepository;
 import Repository.SanPhamRepository;
 import Model.PhieuGiamGiaChiTiet;
@@ -33,7 +32,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FramePhieuGiamGia extends javax.swing.JFrame {
     GiamGiaRepository GG = new GiamGiaRepository();
-    GiamGiaChiTietRepository ggct = new GiamGiaChiTietRepository();
   
 
     public FramePhieuGiamGia() {
