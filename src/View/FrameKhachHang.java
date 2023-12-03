@@ -90,9 +90,8 @@ public class FrameKhachHang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
+        Trangthai = new javax.swing.ButtonGroup();
+        Gioitinhh = new javax.swing.ButtonGroup();
         KhachHangPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -139,10 +138,11 @@ public class FrameKhachHang extends javax.swing.JFrame {
 
         jLabel4.setText("Giới tính:");
 
-        buttonGroup1.add(rdoNam);
+        Gioitinhh.add(rdoNam);
+        rdoNam.setSelected(true);
         rdoNam.setText("Nam");
 
-        buttonGroup1.add(rdoNu);
+        Gioitinhh.add(rdoNu);
         rdoNu.setText("Nữ");
 
         jLabel5.setText("Số điện thoại:");
@@ -151,10 +151,11 @@ public class FrameKhachHang extends javax.swing.JFrame {
 
         jLabel7.setText("Trạng thái:");
 
-        buttonGroup2.add(rdoConHoatDong);
+        Trangthai.add(rdoConHoatDong);
+        rdoConHoatDong.setSelected(true);
         rdoConHoatDong.setText("Còn hoạt động");
 
-        buttonGroup2.add(rdoNgungHoatDong);
+        Trangthai.add(rdoNgungHoatDong);
         rdoNgungHoatDong.setText("Ngừng hoạt động");
 
         jLabel8.setText("Ngày tạo:");
@@ -562,13 +563,12 @@ public class FrameKhachHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup Gioitinhh;
     private javax.swing.JPanel KhachHangPanel;
+    private javax.swing.ButtonGroup Trangthai;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbbLocGioiTinh;
     private javax.swing.JComboBox<String> cbbLocTrangThai;
     private javax.swing.JLabel jLabel1;
