@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -13,13 +14,27 @@ import java.util.Date;
  */
 public class Phieugiamgia {
     private int ID;
-    private String sanphamid;
-    private String tenchuongtrinh;
+    private String MaPhieu;
     private int mucgiamgia;
+    private BigDecimal dk;
     private int soluong;
-    private Date ngaytao;
+    private String chuongtrinh;
     private Date ngaybatdau;
     private Date ngayketthuc;
+
+    public Phieugiamgia() {
+    }
+
+    public Phieugiamgia(int ID, String MaPhieu, int mucgiamgia, BigDecimal dk, int soluong, String chuongtrinh, Date ngaybatdau, Date ngayketthuc) {
+        this.ID = ID;
+        this.MaPhieu = MaPhieu;
+        this.mucgiamgia = mucgiamgia;
+        this.dk = dk;
+        this.soluong = soluong;
+        this.chuongtrinh = chuongtrinh;
+        this.ngaybatdau = ngaybatdau;
+        this.ngayketthuc = ngayketthuc;
+    }
 
     public int getID() {
         return ID;
@@ -29,20 +44,12 @@ public class Phieugiamgia {
         this.ID = ID;
     }
 
-    public String getSanphamid() {
-        return sanphamid;
+    public String getMaPhieu() {
+        return MaPhieu;
     }
 
-    public void setSanphamid(String sanphamid) {
-        this.sanphamid = sanphamid;
-    }
-
-    public String getTenchuongtrinh() {
-        return tenchuongtrinh;
-    }
-
-    public void setTenchuongtrinh(String tenchuongtrinh) {
-        this.tenchuongtrinh = tenchuongtrinh;
+    public void setMaPhieu(String MaPhieu) {
+        this.MaPhieu = MaPhieu;
     }
 
     public int getMucgiamgia() {
@@ -53,6 +60,14 @@ public class Phieugiamgia {
         this.mucgiamgia = mucgiamgia;
     }
 
+    public BigDecimal getDk() {
+        return dk;
+    }
+
+    public void setDk(BigDecimal dk) {
+        this.dk = dk;
+    }
+
     public int getSoluong() {
         return soluong;
     }
@@ -61,12 +76,12 @@ public class Phieugiamgia {
         this.soluong = soluong;
     }
 
-    public Date getNgaytao() {
-        return ngaytao;
+    public String getChuongtrinh() {
+        return chuongtrinh;
     }
 
-    public void setNgaytao(Date ngaytao) {
-        this.ngaytao = ngaytao;
+    public void setChuongtrinh(String chuongtrinh) {
+        this.chuongtrinh = chuongtrinh;
     }
 
     public Date getNgaybatdau() {
@@ -85,20 +100,8 @@ public class Phieugiamgia {
         this.ngayketthuc = ngayketthuc;
     }
 
-    public Phieugiamgia(int ID, String sanphamid, String tenchuongtrinh, int mucgiamgia, int soluong, Date ngaytao, Date ngaybatdau, Date ngayketthuc) {
-        this.ID = ID;
-        this.sanphamid = sanphamid;
-        this.tenchuongtrinh = tenchuongtrinh;
-        this.mucgiamgia = mucgiamgia;
-        this.soluong = soluong;
-        this.ngaytao = ngaytao;
-        this.ngaybatdau = ngaybatdau;
-        this.ngayketthuc = ngayketthuc;
-    }
-
-    public Phieugiamgia() {
-    }
-
     
     
+
 }
+    
