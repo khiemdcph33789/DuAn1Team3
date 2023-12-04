@@ -37,10 +37,6 @@ public class MainNhanVien extends javax.swing.JFrame {
         panelSanPham.setVisible(true);
         panelSanPham.setBounds(0, 0, 1300, 700);
 
-        FrameDoiSP frameDoiSP = new FrameDoiSP();
-        panelDoiSP = frameDoiSP.getDoiSPPanel();
-        panelDoiSP.setVisible(false);
-        panelDoiSP.setBounds(0, 0, 1300, 700);
 
         FrameDotGiamGia frameDotGG = new FrameDotGiamGia();
         panelDotGG = frameDotGG.getPanelDotGG();
@@ -53,7 +49,6 @@ public class MainNhanVien extends javax.swing.JFrame {
         panelKhachHang.setBounds(0, 0, 1300, 700);
 
         MainPanel.add(panelSanPham);
-        MainPanel.add(panelDoiSP);
         MainPanel.add(panelDotGG);
         MainPanel.add(panelKhachHang);
 
@@ -69,8 +64,6 @@ public class MainNhanVien extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnHoaDon = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        btnDoiSP = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         btnKhachHang = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
@@ -132,30 +125,6 @@ public class MainNhanVien extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
-        btnDoiSP.setBackground(new java.awt.Color(204, 204, 255));
-        btnDoiSP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDoiSPMouseClicked(evt);
-            }
-        });
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Đổi sản phẩm");
-
-        javax.swing.GroupLayout btnDoiSPLayout = new javax.swing.GroupLayout(btnDoiSP);
-        btnDoiSP.setLayout(btnDoiSPLayout);
-        btnDoiSPLayout.setHorizontalGroup(
-            btnDoiSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        btnDoiSPLayout.setVerticalGroup(
-            btnDoiSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDoiSPLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
         btnKhachHang.setBackground(new java.awt.Color(204, 204, 255));
         btnKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -177,7 +146,7 @@ public class MainNhanVien extends javax.swing.JFrame {
             .addGroup(btnKhachHangLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel7)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,7 +158,6 @@ public class MainNhanVien extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDoiSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -201,10 +169,8 @@ public class MainNhanVien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDoiSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addContainerGap(496, Short.MAX_VALUE))
         );
 
         MainPanel.setBackground(new java.awt.Color(204, 204, 255));
@@ -233,7 +199,7 @@ public class MainNhanVien extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
         );
 
         pack();
@@ -250,14 +216,6 @@ public class MainNhanVien extends javax.swing.JFrame {
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHoaDonMouseClicked
-
-    private void btnDoiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiSPMouseClicked
-        panelSanPham.setVisible(false);
-        panelDoiSP.setVisible(true);
-        panelDotGG.setVisible(false);
-//        panelPhieuGG.setVisible(false);
-        panelKhachHang.setVisible(false);
-    }//GEN-LAST:event_btnDoiSPMouseClicked
 
     private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
         panelSanPham.setVisible(false);
@@ -305,13 +263,11 @@ public class MainNhanVien extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JPanel btnDoiSP;
     private javax.swing.JPanel btnHoaDon;
     private javax.swing.JPanel btnKhachHang;
     private javax.swing.JPanel btnSanPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
