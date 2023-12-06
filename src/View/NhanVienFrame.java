@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  *
  * @author khiem
  */
-public class MainFrame extends javax.swing.JFrame {
+public class NhanVienFrame extends javax.swing.JFrame {
 
     private JPanel panelSanPham;
     private JPanel panelHoaDon;
@@ -33,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public NhanVienFrame() {
         initComponents();
         GetPanel();
         drawer = Drawer.newDrawer(this)
@@ -44,8 +44,6 @@ public class MainFrame extends javax.swing.JFrame {
                   .itemHeight(60)
                   .addChild(new DrawerItem("Hóa đơn").icon(new ImageIcon(getClass().getResource("/Icon/bill.png"))).build())
                   .addChild(new DrawerItem("Sản phẩm").icon(new ImageIcon(getClass().getResource("/Icon/ProductICON.png"))).build())
-                  .addChild(new DrawerItem("Phiếu giảm giá").icon(new ImageIcon(getClass().getResource("/Icon/voucher.png"))).build())
-                  .addChild(new DrawerItem("Đợt giảm giá").icon(new ImageIcon(getClass().getResource("/Icon/discounts.png"))).build())
                   .addChild(new DrawerItem("Khách hàng").icon(new ImageIcon(getClass().getResource("/Icon/people.png"))).build())
                   .addFooter(new DrawerItem("Exit").icon(new ImageIcon(getClass().getResource("/Icon/exit.png"))).build())
                   .event(new EventDrawer() {
@@ -59,15 +57,9 @@ public class MainFrame extends javax.swing.JFrame {
                               ShowSanPham();
                           }
                           if(i == 2){
-                              ShowPhieuGG();
-                          }
-                          if(i == 3){
-                              ShowDotGG();
-                          }
-                          if(i == 4){
                               ShowKhachHang();
                           }
-                          if(i == 5){
+                          if(i == 3){
                               System.exit(0);
                           }
                           
@@ -202,22 +194,6 @@ public class MainFrame extends javax.swing.JFrame {
             panelKhachHang.setVisible(false);
 
         }
-        public void ShowPhieuGG(){
-            panelSanPham.setVisible(false);
-            panelHoaDon.setVisible(false);
-            panelPhieuGG.setVisible(true);
-            panelDotGG.setVisible(false);
-            panelKhachHang.setVisible(false);
-
-        }
-        public void ShowDotGG(){
-            panelSanPham.setVisible(false);
-            panelHoaDon.setVisible(false);
-            panelPhieuGG.setVisible(false);
-            panelDotGG.setVisible(true);
-            panelKhachHang.setVisible(false);
-
-        }
         public void ShowKhachHang(){
             panelSanPham.setVisible(false);
             panelHoaDon.setVisible(false);
@@ -243,20 +219,21 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NhanVienFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NhanVienFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NhanVienFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NhanVienFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                new NhanVienFrame().setVisible(true);
             }
         });
     }

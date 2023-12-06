@@ -137,7 +137,6 @@ public class FramePhieuGiamGia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        PhieuGGPanel.setBackground(new java.awt.Color(255, 255, 153));
         PhieuGGPanel.setForeground(new java.awt.Color(204, 255, 204));
         PhieuGGPanel.setPreferredSize(new java.awt.Dimension(1300, 700));
 

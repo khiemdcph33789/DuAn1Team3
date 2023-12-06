@@ -42,6 +42,7 @@ import java.util.UUID;
 import javax.lang.model.element.Name;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.opencv.core.Core;
@@ -51,7 +52,9 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
-
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.io.FileOutputStream;
 
 /**
  *
@@ -139,7 +142,7 @@ public class JFrameHoaDon extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        HoaDonPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
@@ -178,7 +181,7 @@ public class JFrameHoaDon extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1300, 700));
+        HoaDonPanel.setPreferredSize(new java.awt.Dimension(1300, 700));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Hoá Đơn"));
 
@@ -520,37 +523,37 @@ public class JFrameHoaDon extends javax.swing.JFrame {
                 .addContainerGap(378, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout HoaDonPanelLayout = new javax.swing.GroupLayout(HoaDonPanel);
+        HoaDonPanel.setLayout(HoaDonPanelLayout);
+        HoaDonPanelLayout.setHorizontalGroup(
+            HoaDonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HoaDonPanelLayout.createSequentialGroup()
+                .addGroup(HoaDonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HoaDonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, HoaDonPanelLayout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, HoaDonPanelLayout.createSequentialGroup()
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(CamerScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(HoaDonPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        HoaDonPanelLayout.setVerticalGroup(
+            HoaDonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HoaDonPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(HoaDonPanelLayout.createSequentialGroup()
+                .addGroup(HoaDonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(HoaDonPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(CamerScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -564,12 +567,12 @@ public class JFrameHoaDon extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(HoaDonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1260, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(HoaDonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -995,11 +998,206 @@ public class JFrameHoaDon extends javax.swing.JFrame {
         HOA_DON_REPO.UpdateStatus(hoadon);
         JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
         loadHoaDon();
+        PrintHoaDonPDF(hoadon);
         
         
         
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    public void PrintHoaDonPDF(HoaDon hoadon){
+        String nameKhachHang = khRepo.getNameKhachHang(hoadon.getKhach_hang_id());
+        if(nameKhachHang == null){
+            nameKhachHang = "";
+        }
+        String PNumber = khRepo.getPNumber(hoadon.getKhach_hang_id());
+        ArrayList<HoaDonChiTiet> listHDCT = hdctRepo.GetListBill(hoadon.getMaHoaDon());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String path = hoadon.getMaHoaDon() + "_BeeClothes_" + sdf.format(hoadon.getNgayMua()) + ".pdf";
+        
+        
+        Document document = new Document();
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:\\STUDYYYY\\DuAn1\\PDF_HOADON\\"+ path));
+            document.open();
+
+            float col = 350f;
+            float[] columnWidth = {col};
+            PdfPTable table = new PdfPTable(columnWidth);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
+            fontHeader.setColor(BaseColor.WHITE);
+            Phrase phrase = new Phrase("Bee Clothes", fontHeader);
+            Font itemFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            itemFont.setColor(BaseColor.WHITE);
+
+            PdfPCell cell = new PdfPCell(phrase);
+            cell.setBackgroundColor(BaseColor.GRAY); // Đặt màu nền cho ô
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setPaddingTop(30f);
+            cell.setPaddingBottom(30f);
+            cell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(cell);
+
+            float[] colWidth = {150, 200, 150, 150};
+            PdfPTable customerInforTable = new PdfPTable(colWidth);
+
+            Font inforFontcustom = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+            Phrase phraseInfor = new Phrase("Thong tin khach hang", inforFontcustom);
+
+            PdfPCell cellCustomer = new PdfPCell(phraseInfor);
+            cellCustomer.setBorder(Rectangle.NO_BORDER);
+            cellCustomer.setPaddingTop(20f);
+            cellCustomer.setPaddingBottom(20f);
+            cellCustomer.setColspan(4);
+            customerInforTable.addCell(cellCustomer);
+
+            PdfPCell cellCustomerInfor = new PdfPCell(new Phrase("Ho ten"));
+            cellCustomerInfor.setPaddingBottom(15f);
+            cellCustomerInfor.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor);
+            PdfPCell cellCustomerInfor1 = new PdfPCell(new Phrase(convert(nameKhachHang)));
+            cellCustomerInfor1.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor1);
+            PdfPCell cellCustomerInfor2 = new PdfPCell(new Phrase("Ma Hoa Don"));
+            cellCustomerInfor2.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor2);
+            PdfPCell cellCustomerInfor3 = new PdfPCell(new Phrase(hoadon.getMaHoaDon() + ""));
+            cellCustomerInfor3.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor3);
+
+            PdfPCell cellCustomerInfor4 = new PdfPCell(new Phrase("So dien thoai"));
+            cellCustomerInfor4.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor4);
+            PdfPCell cellCustomerInfor5 = new PdfPCell(new Phrase(PNumber));
+            cellCustomerInfor5.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor5);
+            PdfPCell cellCustomerInfor6 = new PdfPCell(new Phrase("Ngay mua hang"));
+            cellCustomerInfor6.setBorder(Rectangle.NO_BORDER);
+            customerInforTable.addCell(cellCustomerInfor6);
+            PdfPCell cellCustomerInfor7 = new PdfPCell(new Phrase(sdf.format(hoadon.getNgayMua())));
+            cellCustomerInfor7.setBorder(Rectangle.NO_BORDER);
+            cellCustomerInfor7.setPaddingBottom(20);
+            customerInforTable.addCell(cellCustomerInfor7);
+
+            float[] itemInforColWidtd = {140, 140, 140, 140};
+            PdfPTable itemInforTable = new PdfPTable(itemInforColWidtd);
+
+            PdfPCell itemInforLabel = new PdfPCell(new Phrase("San pham", itemFont));
+            itemInforLabel.setBackgroundColor(BaseColor.GRAY);
+            itemInforLabel.setPaddingBottom(5);
+            itemInforLabel.setPaddingTop(5);
+            itemInforTable.addCell(itemInforLabel);
+            PdfPCell itemInforLabel1 = new PdfPCell(new Phrase("Don gia", itemFont));
+            itemInforLabel1.setBackgroundColor(BaseColor.GRAY);
+            itemInforLabel1.setPaddingBottom(5);
+            itemInforLabel1.setPaddingTop(5);
+            itemInforTable.addCell(itemInforLabel1);
+            PdfPCell itemInforLabel2 = new PdfPCell(new Phrase("So luong", itemFont));
+            itemInforLabel2.setBackgroundColor(BaseColor.GRAY);
+            itemInforLabel2.setPaddingBottom(5);
+            itemInforLabel2.setPaddingTop(5);
+            itemInforTable.addCell(itemInforLabel2);
+            PdfPCell itemInforLabel3 = new PdfPCell(new Phrase("Thanh tien", itemFont));
+            itemInforLabel3.setBackgroundColor(BaseColor.GRAY);
+            itemInforLabel3.setPaddingBottom(5);
+            itemInforLabel3.setPaddingTop(5);
+            itemInforTable.addCell(itemInforLabel3);
+
+            for(HoaDonChiTiet hdct : listHDCT){
+                System.out.println("So luong : " + hdct.getQuantity());
+                PdfPCell itemInfor = new PdfPCell(new Phrase(convert(hdct.getNameProduct())));
+                itemInfor.setPaddingBottom(5);
+                itemInfor.setPaddingTop(5);
+                itemInforTable.addCell(itemInfor);
+                PdfPCell itemInfor1 = new PdfPCell(new Phrase(formatMoney(hdct.getPrice())));
+                itemInfor1.setPaddingBottom(5);
+                itemInfor1.setPaddingTop(5);
+                itemInforTable.addCell(itemInfor1);
+                PdfPCell itemInfor2 = new PdfPCell(new Phrase(hdct.getQuantity()+""));
+                itemInfor2.setPaddingBottom(5);
+                itemInfor2.setPaddingTop(5);
+                itemInforTable.addCell(itemInfor2);
+                PdfPCell itemInfor3 = new PdfPCell(new Phrase(formatMoney(hdct.getIntoMoney())));
+                itemInfor3.setPaddingBottom(5);
+                itemInfor3.setPaddingTop(5);
+                itemInforTable.addCell(itemInfor3);
+            }
+            
+            PdfPCell giamgiafoter = new PdfPCell(new Phrase("", itemFont));
+            giamgiafoter.setBackgroundColor(BaseColor.GRAY);
+            giamgiafoter.setPaddingBottom(5);
+            giamgiafoter.setPaddingTop(5);
+            itemInforTable.addCell(giamgiafoter);
+            PdfPCell giamgiafoter1 = new PdfPCell(new Phrase("", itemFont));
+            giamgiafoter1.setBackgroundColor(BaseColor.GRAY);
+            giamgiafoter1.setPaddingBottom(5);
+            giamgiafoter1.setPaddingTop(5);
+            itemInforTable.addCell(giamgiafoter1);
+            PdfPCell giamgiafoter2 = new PdfPCell(new Phrase("Giam gia", itemFont));
+            giamgiafoter2.setBackgroundColor(BaseColor.GRAY);
+            giamgiafoter2.setPaddingBottom(5);
+            giamgiafoter2.setPaddingTop(5);
+            itemInforTable.addCell(giamgiafoter2);
+            PdfPCell giamgiafoter3 = new PdfPCell(new Phrase(formatMoney(hoadon.getSo_tien_giam_gia()), itemFont));
+            giamgiafoter3.setBackgroundColor(BaseColor.GRAY);
+            giamgiafoter3.setPaddingBottom(5);
+            giamgiafoter3.setPaddingTop(5);
+            itemInforTable.addCell(giamgiafoter3);
+
+            PdfPCell itemInforfoter = new PdfPCell(new Phrase("", itemFont));
+            itemInforfoter.setBackgroundColor(BaseColor.GRAY);
+            itemInforfoter.setPaddingBottom(5);
+            itemInforfoter.setPaddingTop(5);
+            itemInforTable.addCell(itemInforfoter);
+            PdfPCell itemInforfoter1 = new PdfPCell(new Phrase("", itemFont));
+            itemInforfoter1.setBackgroundColor(BaseColor.GRAY);
+            itemInforfoter1.setPaddingBottom(5);
+            itemInforfoter1.setPaddingTop(5);
+            itemInforTable.addCell(itemInforfoter1);
+            PdfPCell itemInforfoter2 = new PdfPCell(new Phrase("Tong tien", itemFont));
+            itemInforfoter2.setBackgroundColor(BaseColor.GRAY);
+            itemInforfoter2.setPaddingBottom(5);
+            itemInforfoter2.setPaddingTop(5);
+            itemInforTable.addCell(itemInforfoter2);
+            PdfPCell itemInforfoter3 = new PdfPCell(new Phrase(formatMoney(hoadon.getTong_tien().subtract(hoadon.getSo_tien_giam_gia())), itemFont));
+            itemInforfoter3.setBackgroundColor(BaseColor.GRAY);
+            itemInforfoter3.setPaddingBottom(5);
+            itemInforfoter3.setPaddingTop(5);
+            itemInforTable.addCell(itemInforfoter3);
+            
+
+            // Chữ ký
+            document.add(table);
+            document.add(customerInforTable);
+            document.add(itemInforTable);
+            document.close();
+            System.out.println("Hóa đơn đã được tạo thành công.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Đã xảy ra lỗi khi tạo PDF.");
+        }
+    
+
+    }
+    public static String convert(String str) {
+        str = str.replaceAll("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a");
+        str = str.replaceAll("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e");
+        str = str.replaceAll("ì|í|ị|ỉ|ĩ", "i");
+        str = str.replaceAll("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ", "o");
+        str = str.replaceAll("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ", "u");
+        str = str.replaceAll("ỳ|ý|ỵ|ỷ|ỹ", "y");
+        str = str.replaceAll("đ", "d");
+
+        str = str.replaceAll("À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ", "A");
+        str = str.replaceAll("È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ", "E");
+        str = str.replaceAll("Ì|Í|Ị|Ỉ|Ĩ", "I");
+        str = str.replaceAll("Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ", "O");
+        str = str.replaceAll("Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ", "U");
+        str = str.replaceAll("Ỳ|Ý|Ỵ|Ỷ|Ỹ", "Y");
+        str = str.replaceAll("Đ", "D");
+        return str;
+    }
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         
         int row = this.tblHoaDon.getSelectedRow();
@@ -1233,10 +1431,14 @@ public class JFrameHoaDon extends javax.swing.JFrame {
         }
         return null;
     }
+    public JPanel getHoaDonPanel(){
+        return HoaDonPanel;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CamerScreen;
+    private javax.swing.JPanel HoaDonPanel;
     private javax.swing.JButton btnAddQty;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnRemoveProduct;
@@ -1251,7 +1453,6 @@ public class JFrameHoaDon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
