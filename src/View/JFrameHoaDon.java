@@ -110,7 +110,7 @@ public class JFrameHoaDon extends javax.swing.JFrame {
                 trangthai,
                 sdf.format(hd.getNgayMua()),
                 hd.getTong_tien(),};
-            dtm.addRow(rowData);
+            dtm.insertRow(0,rowData);
         }
 
     }
