@@ -29,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     private JPanel panelKhachHang;
     private JPanel panelPhieuGG;
     private DrawerController drawer;
-
+              
     /**
      * Creates new form MainFrame
      */
@@ -187,14 +187,18 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
         public void ShowHoaDon(){
+            this.MainPanel.removeAll();
+            GetPanel();
             panelSanPham.setVisible(false);
             panelHoaDon.setVisible(true);
             panelPhieuGG.setVisible(false);
             panelDotGG.setVisible(false);
             panelKhachHang.setVisible(false);
-
+           
         }
         public void ShowSanPham(){
+            this.MainPanel.removeAll();
+            GetPanel();
             panelSanPham.setVisible(true);
             panelHoaDon.setVisible(false);
             panelPhieuGG.setVisible(false);
@@ -203,6 +207,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
         public void ShowPhieuGG(){
+            this.MainPanel.removeAll();
+            GetPanel();
             panelSanPham.setVisible(false);
             panelHoaDon.setVisible(false);
             panelPhieuGG.setVisible(true);
@@ -211,6 +217,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
         public void ShowDotGG(){
+            this.MainPanel.removeAll();
+            GetPanel();
             panelSanPham.setVisible(false);
             panelHoaDon.setVisible(false);
             panelPhieuGG.setVisible(false);
@@ -219,6 +227,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
         public void ShowKhachHang(){
+            this.MainPanel.removeAll();
+            GetPanel();
             panelSanPham.setVisible(false);
             panelHoaDon.setVisible(false);
             panelPhieuGG.setVisible(false);

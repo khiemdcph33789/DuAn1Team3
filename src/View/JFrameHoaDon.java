@@ -79,12 +79,15 @@ public class JFrameHoaDon extends javax.swing.JFrame {
      */
     public JFrameHoaDon() {
         initComponents();
+        InitHoaDon();
+
+    }
+    public void InitHoaDon(){
         HOA_DON_REPO = new HoaDonRepository();
         loadHoaDon();
         loadDataToTableSPCT();
         initOpenCV();
         startWebCam();
-
     }
 
     private void loadHoaDon() {
@@ -1372,7 +1375,9 @@ public class JFrameHoaDon extends javax.swing.JFrame {
             while (true) {
                 capture.read(image);
                 BufferedImage bufferedImage = convertMatToBufferedImage(image);
-
+                if(bufferedImage == null){
+                    return ;
+                }
                 // Đọc barcode từ ảnh sử dụng ZXing
                 String barcodeData = readBarcode(bufferedImage);
                 if (barcodeData != null) {
@@ -1410,8 +1415,12 @@ public class JFrameHoaDon extends javax.swing.JFrame {
         if (mat.channels() > 1) {
             type = BufferedImage.TYPE_3BYTE_BGR;
         }
-        BufferedImage image = new BufferedImage(mat.width(), mat.height(), type);
-        mat.get(0, 0, ((DataBufferByte) image.getRaster().getDataBuffer()).getData());
+        BufferedImage image = null;
+        if(mat.width() > 0 && mat.height() > 0 ){
+             image= new BufferedImage(mat.width(), mat.height(), type);
+            mat.get(0, 0, ((DataBufferByte) image.getRaster().getDataBuffer()).getData());
+        }
+      
         return image;
     }
 

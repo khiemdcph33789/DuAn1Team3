@@ -81,7 +81,8 @@ public class SanPhamChiTietRepository {
     public void UpdateSPCT(SanPhamChiTiet spct) {
         try {
             psm = conn.prepareStatement("UPDATE san_pham_chi_tiet SET san_pham_Id = ?, Size = ?, Color = ?,SellPrice = ? , Quantity = ?,Notes = ?"
-                      + "WHERE ID = ?;");
+                      + " WHERE Id = ?;");
+            System.out.println();
             psm.setInt(1, spct.getSan_pham_Id());
             psm.setString(2, spct.getSize());
             psm.setString(3, spct.getColor());

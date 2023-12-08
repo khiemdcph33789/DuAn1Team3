@@ -67,6 +67,10 @@ public class HoaDonChiTietRepository {
             psm = conn.prepareStatement("""
                                         Insert into hoa_don_chi_tiet (hoa_don_ID,san_pham_ID,quantity,priceProduct)
                                         values (?,?,?,?) """);
+            System.out.println("HD ID : " + hoadonId);
+            System.out.println("sanphamCTID : " + sanphamCTID);
+            System.out.println("quantity : " + quantity);
+            System.out.println("Price : " + Price);
             psm.setInt(1, hoadonId);
             psm.setInt(2, sanphamCTID);
             psm.setInt(3, quantity);
