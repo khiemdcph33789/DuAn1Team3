@@ -191,18 +191,22 @@ public class LoginFrame extends javax.swing.JFrame {
         String username = txtTK.getText();
         String password = new String(txtMK.getPassword());
         LoginRepository loginService = new LoginRepository();
+      
+
+
         // Gọi phương thức authenticateUser từ LoginService để kiểm tra thông tin đăng nhập
         if (loginService.authenticateUser(username, password)) {
-            new MainFrame().setVisible(true);
-
-            this.dispose();
             JOptionPane.showMessageDialog(this, "Login successful!");
-
+            if (username.equals("nhanvien")) {
+                new NhanVienFrame().setVisible(true);
+                this.dispose();
+            } else {
+                new MainFrame().setVisible(true);
+                this.dispose();
+            }
+            
             // Thêm mã của bạn ở đây cho những gì sẽ xảy ra sau khi đăng nhập thành công
         } else {
-            new NhanVienFrame().setVisible(true);
-
-            this.dispose();
             JOptionPane.showMessageDialog(this, "Invalid username or password");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
